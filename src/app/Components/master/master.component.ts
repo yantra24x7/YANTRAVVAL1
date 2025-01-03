@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -267,7 +268,7 @@ export class Dialog {
     fd.append('revision_no','1');
     fd.append('file',this.file2);
 
-    this.http.post("http://192.168.0.237:3000/api/v1/file_upload",fd, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }).subscribe(res =>{
+    this.http.post(`http://${environment.serverUrl1}/api/v1/file_upload`,fd, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }).subscribe(res =>{
       
       if (res['status'] != null) {
         Swal.fire(res['status'])
